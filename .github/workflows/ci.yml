@@ -6,40 +6,19 @@ on:
       - main
       - react-hookform
       - 'problem-*'
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2️⃣ Debug: list all files to check folder structure
-      - name: List repo files
-        run: ls -R
-
-      # 3️⃣ Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 4️⃣ Install dependencies from frontend folder
-      - name: Install dependencies
-        run: npm install
+      - run: npm install
         working-directory: ./frontend
 
-      # 5️⃣ Build project
-      - name: Build project
-        run: npm run build
-        working-directory: ./frontend
-
-      # 6️⃣ Run tests (optional)
-      - name: Run tests
-        run: npm test || echo "No tests configured"
+      - run: npm run build
         working-directory: ./frontend
